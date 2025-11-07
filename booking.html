@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Create Rent Agreement - Punekarar" data-mr="भाडेकरार तयार करा - पुणेकरार">Create Rent Agreement - Punekarar</title>
+    <meta name="description" data-en="Fill details to create govt authorized rent agreement online in Pune. Doorstep biometric, 24-hour delivery." data-mr="पुणे मध्ये ऑनलाइन भाडेकरार तयार करा। घरपोच बायोमेट्रिक, २४ तास डिलिव्हरी।">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="logo.png" alt="Punekarar" class="preloader-logo">
+    </div>
+
+     <!-- Sticky Top Bar -->
+<div class="top-bar sticky">
+    <div class="brand">
+        <img src="logo.png" alt="Punekarar">
+        <div class="brand-text">
+            <span class="brand-name">PuneKarar.in</span>
+            <span class="brand-tagline">Legal. Simple. Digital.</span>
+        </div>
+    </div>
+
+    <!-- Combined container for language + theme toggle -->
+    <div class="top-controls">
+        <div class="lang-toggle">
+            <button id="langToggle" class="lang-btn">
+                <span class="lang-text">EN</span>
+            </button>
+        </div>
+        <div class="theme-toggle">
+            <button id="themeToggle" class="theme-btn">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+    </div>
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="logo.png" alt="Punekarar">
+            
+        </div>
+
+
+        <ul id="sidebarMenu"></ul>
+        <div id="logoutSection" style="display: none; padding: 20px;">
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="section-block">
+                <h2 class="section-title" data-en="Create Rent Agreement" data-mr="भाडेकरार तयार करा">Create Rent Agreement</h2>
+                <p class="text-center" style="color: #42a5f5; margin-bottom: 36px; font-size: 1.15rem;" data-en="Fill details & get your agreement in 24 hours!" data-mr="तपशील भरा आणि २४ तासात करार मिळवा!">
+                    Fill details & get your agreement in 24 hours!
+                </p>
+
+                <!-- Glassmorphism Form -->
+                <form id="agreementForm" class="agreement-form" enctype="multipart/form-data">
+                    <div class="form-grid">
+
+                        <!-- Landlord Details -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-user-tie"></i> <span data-en="Landlord Details" data-mr="मालक तपशील">Landlord Details</span></h3>
+                            <div class="form-group">
+                                <input type="text" id="landlordName" name="landlordName" required placeholder=" ">
+                                <label for="landlordName">Full Name <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="landlordContact" name="landlordContact" maxlength="10" pattern="[0-9]{10}" required placeholder=" ">
+                                <label for="landlordContact">Contact No <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="landlordAadhar" name="landlordAadhar" maxlength="12" pattern="[0-9]{12}" required placeholder=" ">
+                                <label for="landlordAadhar">Aadhar No <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="landlordEmail" name="landlordEmail" required placeholder=" ">
+                                <label for="landlordEmail">Email <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group full-width">
+                                <input type="file" id="landlordAadharFile" name="landlordAadharFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                                <label for="landlordAadharFile" class="file-label">
+                                    <i class="fas fa-upload"></i> Upload Aadhaar (PDF/JPG/PNG) <span class="required">*</span>
+                                </label>
+                                <div id="landlordAadharPreview" class="file-preview"></div>
+                            </div>
+                        </div>
+
+                        <!-- Tenant Details -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i> <span data-en="Tenant Details" data-mr="भाडेकरू तपशील">Tenant Details</span></h3>
+                            <div class="form-group">
+                                <input type="text" id="tenantName" name="tenantName" required placeholder=" ">
+                                <label for="tenantName">Full Name <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="tenantContact" name="tenantContact" maxlength="10" pattern="[0-9]{10}" required placeholder=" ">
+                                <label for="tenantContact">Contact No <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="tenantAadhar" name="tenantAadhar" maxlength="12" pattern="[0-9]{12}" required placeholder=" ">
+                                <label for="tenantAadhar">Aadhar No <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="tenantEmail" name="tenantEmail" required placeholder=" ">
+                                <label for="tenantEmail">Email <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group full-width">
+                                <input type="file" id="tenantAadharFile" name="tenantAadharFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                                <label for="tenantAadharFile" class="file-label">
+                                    <i class="fas fa-upload"></i> Upload Aadhaar (PDF/JPG/PNG) <span class="required">*</span>
+                                </label>
+                                <div id="tenantAadharPreview" class="file-preview"></div>
+                            </div>
+                        </div>
+
+                        <!-- Property Details -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-home"></i> <span data-en="Property Details" data-mr="मालमत्ता तपशील">Property Details</span></h3>
+                            <div class="form-group full-width">
+                                <textarea id="propertyAddress" name="propertyAddress" required rows="3" placeholder=" "></textarea>
+                                <label for="propertyAddress">Full Address <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="propertyCity" name="propertyCity" required placeholder=" ">
+                                <label for="propertyCity">City <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="propertyPincode" name="propertyPincode" maxlength="6" pattern="[0-9]{6}" required placeholder=" ">
+                                <label for="propertyPincode">Pincode <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group full-width">
+                                <input type="file" id="propertyProof" name="propertyProof" accept=".pdf,.jpg,.jpeg,.png" required>
+                                <label for="propertyProof" class="file-label">
+                                    <i class="fas fa-home"></i> Upload Property Proof (Index/Sale Deed) <span class="required">*</span>
+                                </label>
+                                <div id="propertyProofPreview" class="file-preview"></div>
+                            </div>
+                        </div>
+
+                        <!-- Agreement Details -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-file-contract"></i> <span data-en="Agreement Details" data-mr="करार तपशील">Agreement Details</span></h3>
+                            <div class="form-group">
+                                <input type="date" id="startDate" name="startDate" required>
+                                <label for="startDate">Start Date <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" id="endDate" name="endDate" required>
+                                <label for="endDate">End Date <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="rentAmount" name="rentAmount" required min="0" placeholder=" ">
+                                <label for="rentAmount">Monthly Rent (₹) <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="depositAmount" name="depositAmount" required min="0" placeholder=" ">
+                                <label for="depositAmount">Security Deposit (₹) <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group">
+                                <select id="agreementType" name="agreementType" required>
+                                    <option value="" disabled selected></option>
+                                    <option value="Residential">Residential</option>
+                                    <option value="Commercial">Commercial</option>
+                                </select>
+                                <label for="agreementType">Agreement Type <span class="required">*</span></label>
+                            </div>
+                            <div class="form-group full-width">
+                                <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png">
+                                <label for="photo" class="file-label">
+                                    <i class="fas fa-camera"></i> Upload Photo (Optional)
+                                </label>
+                                <div id="photoPreview" class="file-preview"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="form-actions">
+                        <button type="submit" class="cta large pulsating">
+                            <span class="btn-text" data-en="Create Agreement" data-mr="करार तयार करा">Create Agreement</span>
+                            <i class="fas fa-arrow-right btn-icon"></i>
+                        </button>
+                        <p class="form-note" data-en="You'll receive PDF via email & WhatsApp in 24 hours." data-mr="तुम्हाला २४ तासात ईमेल आणि व्हॉट्सअ‍ॅपवर PDF मिळेल।">
+                            You'll receive PDF via email & WhatsApp in 24 hours.
+                        </p>
+                    </div>
+                </form>
+
+                <div id="responseMessage" class="response-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/918830402939" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>

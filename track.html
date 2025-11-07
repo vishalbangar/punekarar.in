@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Track Agreement Status - Punekarar" data-mr="करार स्थिती तपासा - पुणेकरार">Track Agreement Status</title>
+    <meta name="description" data-en="Track your rent agreement status using your unique Tracking ID." data-mr="तुमच्या युनिक ट्रॅकिंग आयडीने करार स्थिती तपासा।">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="logo.png">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader"><img src="logo.png" class="preloader-logo"></div>
+
+     <!-- Sticky Top Bar -->
+<div class="top-bar sticky">
+    <div class="brand">
+        <img src="logo.png" alt="Punekarar">
+        <div class="brand-text">
+            <span class="brand-name">PuneKarar.in</span>
+            <span class="brand-tagline">Legal. Simple. Digital.</span>
+        </div>
+    </div>
+
+    <!-- Combined container for language + theme toggle -->
+    <div class="top-controls">
+        <div class="lang-toggle">
+            <button id="langToggle" class="lang-btn">
+                <span class="lang-text">EN</span>
+            </button>
+        </div>
+        <div class="theme-toggle">
+            <button id="themeToggle" class="theme-btn">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Hamburger -->
+    <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="logo.png" alt="Punekarar">
+        </div>
+        <ul id="sidebarMenu"></ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+
+            <!-- Track Hero -->
+            <div class="hero-track" data-aos="fade-up">
+                <h1 data-en="Track Your Agreement" data-mr="तुमचा करार तपासा">Track Your Agreement</h1>
+                <p data-en="Enter your Tracking ID (e.g., 4)" data-mr="ट्रॅकिंग आयडी टाका (उदा. ४)">
+                    Enter your Tracking ID (e.g., 4)
+                </p>
+
+                <div class="track-form">
+                    <input type="number" id="trackingId" placeholder="Enter Tracking ID (e.g., 4)" min="1" required>
+                    <button id="trackBtn" class="cta large">Track Now</button>
+                </div>
+
+                <div id="statusResult" class="status-box" style="display:none;">
+                    <div class="status-header">
+                        <h3>Agreement Status</h3>
+                        <span id="statusBadge" class="badge pending">Pending</span>
+                    </div>
+                    <div class="status-details">
+    <p><strong>Tracking ID</strong> <span id="tid"></span></p>
+    <p><strong>Landlord</strong> <span id="landlord"></span></p>
+    <p><strong>Tenant</strong> <span id="tenant"></span></p>
+    <p><strong>Property</strong> <span id="property"></span></p>
+    <p><strong>Submitted</strong> <span id="submitted"></span></p>
+    <p><strong>Current Status</strong> <span id="currentStatus"></span></p>
+    <p><strong>Next Step</strong> <span id="nextStep"></span></p>
+</div>
+                    <div class="status-timeline">
+    <div class="step done" id="step1"><i class="fas fa-check"></i> Submitted</div>
+    <div class="step" id="step2"><i class="fas fa-hourglass-half"></i> Verification</div>
+    <div class="step" id="step3"><i class="fas fa-fingerprint"></i> Biometric Scheduled</div>
+    <div class="step" id="step4"><i class="fas fa-file-signature"></i> Agreement Ready</div>
+    <div class="step" id="step5"><i class="fas fa-paper-plane"></i> Delivered</div>
+</div>
+
+                    <!-- Download Button (Only if completed) -->
+                    <div id="downloadSection" style="margin-top: 20px; text-align: center; display: none;">
+                        <a href="#" id="downloadBtn" class="cta green">
+                            <i class="fas fa-download"></i> Download Agreement PDF
+                        </a>
+                    </div>
+                </div>
+
+                <div id="errorMsg" class="error-msg" style="display:none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/918830402939?text=Hi,%20My%20 track ID:%20" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Auto-fill Tracking ID from URL (?id=4)
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlId = urlParams.get('id');
+        if (urlId && !isNaN(urlId)) {
+            document.getElementById('trackingId').value = urlId;
+            document.getElementById('trackBtn').click();
+        }
+
+        // Track Status Logic
+        document.getElementById('trackBtn').addEventListener('click', async () => {
+            let tid = document.getElementById('trackingId').value.trim();
+            if (!tid || isNaN(tid) || tid <= 0) {
+                showError('Please enter a valid Tracking ID (e.g., 4)');
+                return;
+            }
+
+            tid = parseInt(tid); // Ensure number
+            const result = document.getElementById('statusResult');
+            const error = document.getElementById('errorMsg');
+            const btn = document.getElementById('trackBtn');
+
+            hide(error);
+            hide(result);
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking...';
+            btn.disabled = true;
+
+            try {
+                // API CALL - Use numeric ID
+                const res = await fetch(`http://localhost:5000/api/agreements/track/${tid}`);
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.message || 'Agreement not found');
+                }
+
+                // Fill Data
+                document.getElementById('tid').textContent = data.id;
+                document.getElementById('landlord').textContent = data.landlord_name || 'N/A';
+                document.getElementById('tenant').textContent = data.tenant_name || 'N/A';
+                document.getElementById('property').textContent = `${data.property_address}, ${data.property_city} - ${data.property_pincode}`;
+                document.getElementById('submitted').textContent = formatDate(data.created_at);
+
+                // Status Mapping
+                const statusMap = {
+                    pending: { text: 'Verification Pending', color: 'orange', next: 'Our team is reviewing your documents', step: 1 },
+                    verified: { text: 'Documents Verified', color: 'blue', next: 'Biometric slot will be assigned soon', step: 2 },
+                    biometric_scheduled: { text: 'Biometric Scheduled', color: 'purple', next: 'Agent will visit on scheduled date', step: 3 },
+                    signed: { text: 'Agreement Signed', color: 'green', next: 'Final PDF is being generated...', step: 4 },
+                    completed: { text: 'Delivered!', color: 'success', next: 'Check your email & WhatsApp', step: 5 }
+                };
+
+                const status = statusMap[data.status] || statusMap.pending;
+                document.getElementById('currentStatus').textContent = status.text;
+                document.getElementById('nextStep').textContent = status.next;
+                const badge = document.getElementById('statusBadge');
+                badge.textContent = status.text;
+                badge.className = `badge ${status.color}`;
+
+                // Timeline
+                for (let i = 1; i <= 5; i++) {
+                    const step = document.getElementById(`step${i}`);
+                    if (i <= status.step) {
+                        step.classList.add('done');
+                    } else {
+                        step.classList.remove('done');
+                    }
+                }
+
+                // Show Download Button if completed
+                const downloadSection = document.getElementById('downloadSection');
+                const downloadBtn = document.getElementById('downloadBtn');
+                if (data.status === 'completed' && data.pdf_url) {
+                    downloadBtn.href = data.pdf_url;
+                    downloadSection.style.display = 'block';
+                } else {
+                    downloadSection.style.display = 'none';
+                }
+
+                show(result);
+                result.scrollIntoView({ behavior: 'smooth' });
+
+            } catch (err) {
+                showError(err.message || 'Invalid Tracking ID');
+            } finally {
+                btn.innerHTML = 'Track Now';
+                btn.disabled = false;
+            }
+        });
+
+        // Enter key support
+        document.getElementById('trackingId').addEventListener('keypress', e => {
+            if (e.key === 'Enter') document.getElementById('trackBtn').click();
+        });
+
+        // Helper Functions
+        function show(el) { el.style.display = 'block'; }
+        function hide(el) { el.style.display = 'none'; }
+        function showError(msg) {
+            const error = document.getElementById('errorMsg');
+            error.querySelector('span').textContent = msg;
+            show(error);
+            hide(document.getElementById('statusResult'));
+        }
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleString('en-IN', {
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        }
+
+        // Update WhatsApp link with ID
+        document.getElementById('trackingId').addEventListener('input', e => {
+            const wa = document.querySelector('.whatsapp-float');
+            wa.href = `https://wa.me/918830402939?text=Hi,%20My%20Tracking%20ID:%20${e.target.value}`;
+        });
+    </script>
+</body>
+</html>
