@@ -877,8 +877,6 @@ details p { padding: 0 24px 24px; color: var(--text); }
 
 
 
-
-
 /* ========================================
    FOOTER CONTACT
    ======================================== */
@@ -909,11 +907,11 @@ details p { padding: 0 24px 24px; color: var(--text); }
   border: 1px solid var(--border);
   border-radius: 50px;
   display: flex;
-  gap: 12px;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  gap: 24px; /* 🔹 Increased gap between icons */
+  padding: 10px 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   backdrop-filter: blur(10px);
 }
@@ -922,6 +920,7 @@ details p { padding: 0 24px 24px; color: var(--text); }
 .contact-link {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   font-weight: 600;
   text-decoration: none;
@@ -931,67 +930,72 @@ details p { padding: 0 24px 24px; color: var(--text); }
   transition: all 0.3s ease;
 }
 
-/* WhatsApp */
+/* ✅ WhatsApp */
 .contact-link.whatsapp {
   background: #25D366;
   color: #fff;
-  width: 42px;
-  height: 42px;
-  justify-content: center;
+  width: 50px; /* 🔹 Bigger icon area */
+  height: 50px;
+  border-radius: 50%;
 }
 .contact-link.whatsapp i {
-  font-size: 1.2rem;
+  font-size: 1.6rem; /* 🔹 Bigger icon size */
 }
 .contact-link.whatsapp:hover {
   background: #1EBE5B;
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
-/* Call */
+/* ✅ Call */
 .contact-link.call {
   background: #007BFF;
   color: #fff;
-  padding: 6px 16px;
+  padding: 8px 18px;
+  border-radius: 30px;
+}
+.contact-link.call i {
+  font-size: 1.2rem;
 }
 .contact-link.call:hover {
   background: #0056b3;
   transform: scale(1.05);
 }
 
-/* Icons */
-.contact-link i {
-  font-size: 1rem;
-}
-
-/* ✅ Mobile: same row, just smaller */
+/* ✅ Mobile View */
 @media (max-width: 768px) {
   .floating-contact-bar {
-    gap: 8px;
-    padding: 8px 12px;
+    gap: 16px; /* Slightly less gap on mobile */
+    padding: 8px 16px;
     bottom: 10px;
   }
 
   .contact-link {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     padding: 5px 10px;
     gap: 6px;
   }
 
   .contact-link.whatsapp {
-    width: 36px;
-    height: 36px;
+    width: 44px; /* 🔹 Still larger than before */
+    height: 44px;
   }
 
-  .contact-link i {
-    font-size: 0.9rem;
+  .contact-link.whatsapp i {
+    font-size: 1.4rem; /* 🔹 Bigger on mobile too */
+  }
+
+  .contact-link.call {
+    padding: 6px 14px;
+  }
+
+  .contact-link.call i {
+    font-size: 1rem;
   }
 
   .contact-link.call span {
     font-size: 0.85rem;
   }
 }
-
-
 
 /* ========================================
    AGREEMENT FORM STYLING
@@ -1530,4 +1534,5 @@ html[data-theme="light"] {
 .cta.franchise:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,120,255,0.3);
+
 }
