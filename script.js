@@ -419,7 +419,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const regFee = 1000;
             const dhc = 300;
-            const serviceCharge = 599;
+            const serviceCharge = 799;
             const total = stampDuty + regFee + dhc + serviceCharge;
 
             document.getElementById("stampDuty").textContent = stampDuty.toLocaleString();
@@ -471,4 +471,5 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }, 60000);
     }
+
 });
